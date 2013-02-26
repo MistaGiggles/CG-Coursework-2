@@ -1,0 +1,43 @@
+
+Controls:
+
+Left/Right Arrows : Rotate model Left/Right
+F1 : Flat Shading
+F2 : Phong Shading
+F12: Reset Rotation
+
+Scene:
+
+Teapot Model in the center, with a dim white light as ambient light. There are three "floating" lights each with a distinct color: Red, blue and green.
+Different colored lights help show how the differnt lights interact with each other on the teapot.
+Simple sloped floor.
+
+The rotation function rotates the model and the floor, the lights are static
+
+Features:
+1) Normal vectors computed for each vertice using an average of the face normals for each triangle it is included in
+2) Use of a zbuffer to ensure that the scene is rendered in the correct order, with closer triangles overriding trianges at the back
+3) Use of Back Face Culling to ignore triangles that are not facing towards the camera
+4) Use of barycentric coordinates to determine if a pixel is within a triangle.
+5) Use of Phone Illumination Model to calulate ambient light, diffused light and specular highlights
+6) Interpolation of vertex normals to produce smooth, rounded faces
+7) A simple floor. The floor is initially sloped towards the camera so that it is apparent during rotation. Otherwise the lack of perspective transformation on a flat floor would result in the floor being rendered as a line segment.
+
+
+Usage:
+
+./comp.sh
+Will compile the code
+
+./cg teapot.obj
+Will run the program with the teapot model
+
+
+Included Screenshots:
+
+screen_phong_shading.png
+Final shaded model using phong illumination
+
+
+screen_flat_shading.png
+Model shaded with flat shading

@@ -128,12 +128,9 @@ class Vector3f {
 		x = _item[0];
 		y = _item[1];
 		z = _item[2];
-		//if(x*x+y*y+z*z <= 1.1){return;}
+		
 		if(_item[0]==0 && _item[1]==0 && _item[2]==0) {std::cout<<"NULL VECTOR"<<std::endl;return;}
-		//std::cout<<"Attempting to normalise: "<<x<<" "<<y<<" "<<z<<std::endl;
-		//if(x*x==0){std::cout<<"x null"<<std::endl;}
-		//if(y*y==0){std::cout<<"y null"<<std::endl;}
-		//if(z*z==0){std::cout<<"z null"<<std::endl;}
+	
 		double length = sqrt((x * x) + (y * y) + (z*z));
 		if(length == 0) {std::cout<<"NORMALISATION ERROR  "<<x<<" "<<y<<" "<<z<<std::endl;return;}
 		_item[0] = x/length;
@@ -260,7 +257,6 @@ public:
 			rtn[0] = a1[0]*bary[0] + a2[0]*bary[1] + a3[0]*bary[2];
 			rtn[1] = a1[1]*bary[0] + a2[1]*bary[1] + a3[1]*bary[2];
 			rtn[2] = a1[2]*bary[0] + a2[2]*bary[1] + a3[2]*bary[2];
-			//std::cout<<rtn[0]<<" "<<rtn[1]<<" "<<rtn[2]<<std::endl;
 		};
 
 		// Calculates barycentric coordinates
@@ -360,6 +356,8 @@ public:
 		};
 };
 
+
+// Simple class used to hold light information
 class Light
 {
 public:
@@ -385,7 +383,7 @@ class Lighting
 {
 		
 	public:
-
+		// Generates three lights, a red, green and blue 
 		static void setLights()
 		{
 				Light a(0.5f, 0.5f, 0, 0,0,0.85f);
@@ -449,41 +447,7 @@ class Lighting
 class Transformations
 {
 	public:
-	static void Translate(Vector3f& vec, double x, double y, double z) 
-	{
-		
-
-		double xa,ya,za,wa = 0;
-
-		xa = 1*vec[0] + 0*vec[1] + 0*vec[2] + vec[3]*x;
-		ya = 0*vec[0] + 1*vec[1] + 0*vec[2] + vec[3]*y;
-		za = 0*vec[0] + 0*vec[1] + 1*vec[2] + vec[3]*z;
-		wa = 0*vec[0] + 0*vec[1] + 0*vec[2] + vec[3]*1;
-		
-		vec[0] = xa;
-		vec[1] = ya;
-		vec[2] = za;
-		vec[3] = wa;
-
-	}
 	
-	static void Project(float focal, Vector3f& a, Vector3f& c)
-	{
-		//a[0] = (a[0] - c[0]) /(-focal * a[2] + 1);
-		//a[1] = (a[1] - c[1]) /(-focal * a[2] + 1);
-		a[0] = ((a[0] - c[0]) * focal) / (-a[2] + focal);
-		a[1] = ((a[1] - c[1]) * focal) / (-a[2] + focal);
-	}
-	
-	
-	static void Scale(Vector3f& vec, double x, double y, double z)
-	{
-		double xa, ya, za = 0;
-		vec[0] *= x;
-		vec[1] *= y;
-		vec[2] *= z;
-
-	}
 
 	static void RotX(Vector3f& vec, double angle)
 	{
@@ -540,16 +504,7 @@ class Transformations
 		RotZ(vec, rotz);
 	}
 
-	static void Transform(Vector3f& v1, Vector3f& v2, Vector3f& v3, double x, double y, double z, double rotx, double roty, double rotz)
-	{
-		Rotate(v1, rotx, roty, rotz);
-		Rotate(v2, rotx, roty, rotz);
-		Rotate(v3, rotx, roty, rotz);
-
-		Translate(v1, x,y,z);
-		Translate(v2, x,y,z);
-		Translate(v3, x,y,z);
-	}
+	
 };
 
 #endif //_rt_H

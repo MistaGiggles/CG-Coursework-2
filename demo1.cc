@@ -20,52 +20,10 @@ int mode = 0;
 bool once = false;
 int mx, my  = 0;
 
-float foc  = 0;
-
 //The mesh global variable
 TriangleMesh trig;
 
-void drawMidPoint(int x0, int x1, int y0, int y1)
-{
-		
-		int dx = x1 - x0;
-		int dy = y1 - y0;
 
-		if(dx < 0) {
-			int tmp = x1;
-			x1 = x0;
-			x0 = tmp;
-			dx = x1 - x0;
-		}
-
-		if(dy < 0) {
-			int tmp2 = y1;
-			y1 = y0;
-			y0 = tmp2;
-			dy = y1 - y0;
-
-		}
-	
-		for(int y = y0; y < y1; y++)
-		{
-			int x = (dx) * (y-y0)/(dy) + x0;
-			glVertex2i(x,y);
-		}
-	
-		for(int x = x0; x < x1; x++)
-		{
-		
-			int y = (dy) * (x-x0)/(dx) + y0;
-			glColor3f(1,1,1);
-			glVertex2i(x,y);
-		}
-
-			//x1 + t*(x2 - x1);
-
-
-
-
-}
 
 //This function loads an obj format file
 //This is a utility and should not have to be modified for teapot.obj (the assignment).
@@ -186,10 +144,7 @@ void TriangleMesh::preComputeNormals()
 				
 				Operations::FaceNormal(norm, a, b, c);
 				norm.Normalise();
-				if(_trig[trig].normal[0] == norm[0] && _trig[trig].normal[1] == norm[1] && _trig[trig].normal[2] == norm[2]) 
-				{
-					//std::cout<<"Normal already set"<<std::endl;
-				}
+				
 				_trig[trig].normal[0] = norm[0];
 				_trig[trig].normal[1] = norm[1];
 				_trig[trig].normal[2] = norm[2];
@@ -200,13 +155,7 @@ void TriangleMesh::preComputeNormals()
 					
 					
 			
-			if(v < 10) {
-				Vector3f out;
-				_v[v].getNormal(out);
-				//std::cout<<v<<" OUT: "<<out[0]<<", "<<out[1]<<", "<<out[2]<<std::endl;
-				out.Normalise();
-				//std::cout<<v<<" OUT: "<<out[0]<<", "<<out[1]<<", "<<out[2]<<std::endl;
-			}
+			
 		}
 
 		for(int c = 0; c < _v.size(); c++)
